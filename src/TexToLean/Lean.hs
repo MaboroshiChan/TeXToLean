@@ -27,10 +27,19 @@ handleBigOperator :: String -> LaTeX -> Text
 handleBigOperator op
  (TeXSeq (TeXRaw "_") 
  (TeXSeq (TeXBraces (TeXRaw down)) (TeXBraces (TeXRaw up)))) = undefined
+
 handleBigOperator op
  (TeXSeq (TeXRaw "_") 
  (TeXBraces (TeXSeq expr1 (TeXSeq (TeXCommS "in") expr2)))) 
    = Text.pack op <>" "<>toLean expr1 <> "in" <> toLean expr2
+
+handleBigOperator op
+ (TeXSeq (TeXRaw "_") 
+ (TeXSeq (TeXSeq (TeXBraces (TeXRaw down)) (TeXBraces (TeXRaw up))) rest ) ) = undefined
+
+handleBigOperator op (TeXSeq (TeXRaw "_") 
+ (TeXSeq (TeXBraces (TeXSeq expr1 (TeXSeq (TeXCommS "in") expr2))) rest) )  
+   = Text.pack op <>" "<>toLean expr1 <> "in" <> toLean expr2 <> " " <> toLean rest
 
 texcomm :: String -> [TeXArg] -> Text
 texcomm "frac" [FixArg numerator, FixArg denominator] 

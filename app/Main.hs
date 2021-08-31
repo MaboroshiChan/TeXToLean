@@ -10,7 +10,7 @@ import TexToLean.Lean
 
 main :: IO ()
 main = do
-    let tex :: Text = "\\sum_{x \\in S}"
+    let tex :: Text = "\\sum_{x \\in S}\\frac{1}{x} = 1"
     let res = parseLaTeX tex
     case res of
         Left _ -> return ()
